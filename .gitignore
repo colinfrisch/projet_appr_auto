@@ -3,6 +3,12 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# data
+data/
+
+# Subject
+Sujet-soudures.docx
+
 # C extensions
 *.so
 

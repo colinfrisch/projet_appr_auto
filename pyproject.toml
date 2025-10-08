@@ -1,0 +1,18 @@
+[project]
+name = "soudures"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Hugues d'Hardemare",email = "hugues.du-moulinet-dhardemare@student-cs.fr"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+packages = []
+dependencies = [
+    "pandas (>=2.3.3,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

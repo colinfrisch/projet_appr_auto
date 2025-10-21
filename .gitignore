@@ -153,6 +153,8 @@ ENV/
 env.bak/
 venv.bak/
 .DS_Store
+poetry.lock
+pyproject.toml
 
 
 # Cursor/Claude

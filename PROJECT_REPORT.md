@@ -1,26 +1,7 @@
 # Weld Quality Analysis and Prediction
 ## Machine Learning Project Report
 
-**Project**: Steel Weld Database Analysis  
-**Date**: November 6, 2025  
-**Objective**: Predict weld quality and identify distinct welding process patterns through regression and clustering
-
----
-
-## Executive Summary
-
-This project analyzes a comprehensive steel weld database containing 1,652 welding samples with 44 features including chemical composition, welding parameters, and mechanical properties. The main objectives were to:
-
-1. **Predict weld quality** using machine learning regression models
-2. **Identify distinct welding patterns** through clustering analysis
-3. **Understand key factors** influencing weld quality
-
-**Key Results:**
-- Achieved **74.7% R² score** in predicting weld quality using XGBoost
-- Identified **6 distinct welding clusters** with unique characteristics
-- Discovered that **electrical parameters** (current, voltage, power input) and **impurities** (sulfur, phosphorus) are the most important factors
-
----
+**By:** Ikram Firadous, Paul Guimbert, Hugues Du Moulinet d'Hardemare, Colin Frisch
 
 ## 1. Data Preprocessing
 
@@ -222,28 +203,13 @@ K=6 was selected based on:
 - **Interpretation**: Energy-efficient processes, but impurities reduce toughness
 
 #### **Cluster 2** (146 samples, 8.8%) - *"Vanadium-Rich, Heat-Treated Welds"*
-- **High**: Vanadium (0.063% vs 0.011%), PWHT temperature (465°C), nitrogen
-- **Low**: Current density
-- **Quality**: **Lowest toughness** (52.2J), warm test temperature (-1.4°C)
-- **Interpretation**: High-strength alloy steels with post-weld heat treatment, sacrificing toughness for strength
 
 #### **Cluster 3** (343 samples, 20.8%) - *"Low-Manganese, Low-Hardenability Welds"*
-- **Low**: Manganese (0.78% vs 1.20%), hardenability index
-- **Similar to Cluster 0** in electrical parameters
-- **Quality**: Good toughness (85.3J), low test temperature (-45.9°C)
-- **Interpretation**: Soft steels with lower alloy content, good low-temperature performance
 
 #### **Cluster 4** (101 samples, 6.1%) - *"High Carbon-Ratio, Premium Welds"*
-- **Smallest cluster** with unique properties
-- **High**: Carbon/Manganese ratio, current density, PWHT temperature
-- **Quality**: **Highest toughness** (110.6J), warmest test temperature (-14.2°C)
-- **Interpretation**: Carefully balanced composition with optimized heat treatment → superior quality
 
 #### **Cluster 5** (245 samples, 14.8%) - *"High-Power, High-Current Welds"*
-- **Highest**: Power input (13.5kW vs 7.1kW), current (424A vs 262A), current density
-- **Moderate**: All other parameters
-- **Quality**: Good toughness (89.6J), moderate test temperature (-29.0°C)
-- **Interpretation**: High-energy welding processes (e.g., submerged arc welding)
+
 
 ### 3.4 Key Discriminating Features (ANOVA F-test)
 
@@ -254,13 +220,9 @@ Features that **best distinguish clusters** (ranked by F-statistic):
 3. **Current density** (F=2833)
 4. **Heat input** (F=1579)
 5. **Cooling rate** (F=1078)
-6. **Voltage** (F=807)
-7. **Vanadium content** (F=527)
-8. **Manganese content** (F=499)
-9. **Impurities index** (F=412)
-10. **PWHT temperature** (F=285)
 
-**Insight**: Electrical parameters dominate cluster separation, followed by chemical composition and thermal treatment.
+
+> *Insight*: Electrical parameters dominate cluster separation, followed by chemical composition and thermal treatment.
 
 ### 3.5 Cluster Quality Analysis
 
@@ -316,27 +278,7 @@ Features that **best distinguish clusters** (ranked by F-statistic):
 
 ---
 
-## 5. Methodology Strengths and Limitations
-
-### 5.1 Strengths
-
-✓ **Comprehensive preprocessing**: Handled ambiguous values, missing data, and outliers systematically  
-✓ **Domain-informed feature engineering**: Created physically meaningful features  
-✓ **Multiple model comparison**: Evaluated various algorithms before selecting best performer  
-✓ **Thorough clustering analysis**: Compared 5 different clustering methods with multiple metrics  
-✓ **Statistical rigor**: Used ANOVA, t-tests, and multiple validation techniques  
-
-### 5.2 Limitations
-
-✗ **Reduced dataset for regression**: Only 720/1,652 samples (43.6%) had sufficient target data  
-✗ **Imputation uncertainty**: KNN imputation may introduce bias, especially for outliers  
-✗ **PCA interpretability**: While effective, principal components are less intuitive than original features  
-✗ **Moderate silhouette scores**: Cluster overlap suggests some ambiguity in welding regime boundaries  
-✗ **Limited microstructure data**: Many microstructure features removed due to missing values  
-
----
-
-## 6. Conclusions
+## Conclusions
 
 This comprehensive analysis of 1,652 steel welds demonstrates the power of machine learning in understanding complex manufacturing processes:
 
@@ -360,50 +302,4 @@ This comprehensive analysis of 1,652 steel welds demonstrates the power of machi
    - Cluster 4 characteristics (high C/Mn ratio, optimized heat treatment) produce best quality
    - Managing impurities is essential for high-toughness applications
    - Different applications require different welding strategies (clusters)
-
-### Future Work
-
-- **Incorporate microstructure data**: Impute or collect complete ferrite/martensite measurements
-- **Time-series analysis**: If available, analyze temporal patterns in welding processes
-- **Cost optimization**: Build cost models to balance quality vs. expenses
-- **Transfer learning**: Apply models to new steel grades or welding methods
-- **Explainable AI**: Use SHAP or LIME for instance-level explanations
-- **Real-time monitoring**: Deploy models for in-process quality prediction
-
----
-
-## 7. Technical Appendix
-
-### 7.1 Software and Libraries
-
-- **Python 3.x**
-- **Data Processing**: pandas, numpy
-- **Visualization**: matplotlib, seaborn
-- **Machine Learning**: scikit-learn, xgboost
-- **Statistical Analysis**: scipy
-
-### 7.2 Data Files Generated
-
-1. `processed_welddb.csv` - Cleaned data with engineered features and PCA components
-2. `clustered_welddb.csv` - Full dataset with cluster labels
-3. `cluster_summary_statistics.csv` - Statistical summaries by cluster
-4. `cluster_feature_importance.csv` - ANOVA F-statistics for feature importance
-5. `clustering_comparison.csv` - Performance metrics for all clustering methods
-6. `pca_model.pkl`, `scaler_model.pkl` - Saved preprocessing models
-
-### 7.3 Reproducibility
-
-All analysis is fully reproducible through the provided Jupyter notebooks:
-1. `preprocessing.ipynb` - Data cleaning, feature engineering, PCA
-2. `regression.ipynb` - Quality score definition, model training, evaluation
-3. `clustering.ipynb` - Clustering algorithm comparison and selection
-4. `clusters_analysis.ipynb` - Detailed cluster characterization
-
-Random seeds were set for all stochastic processes (random_state=42).
-
----
-
-**Report prepared by**: Machine Learning Analysis Team  
-**Project Code**: Available in project repository  
-**Contact**: For questions or collaborations regarding this analysis
 
